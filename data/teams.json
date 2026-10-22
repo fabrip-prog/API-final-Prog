@@ -1,0 +1,682 @@
+[
+  {
+    "id": "arsenal-fc",
+    "nombre": "Arsenal Football Club",
+    "nombre_corto": "Arsenal",
+    "tla": "ARS",
+    "año_fundacion": 1886,
+    "ciudad": "Londres",
+    "url_escudo": "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg",
+    "estadio": {
+      "nombre": "Emirates Stadium",
+      "capacidad": 60704,
+      "año_inauguracion": 2006,
+      "ubicacion": "Highbury House, 75 Drayton Park, London, N5 1BU"
+    },
+    "miembros_e_hinchas": {
+      "cantidad_miembros_oficiales": 200000,
+      "apodo": "The Gunners"
+    },
+    "palmares": {
+      "titulos_premier_league": 3,
+      "titulos_primera_division": 10,
+      "copas_fa": 14,
+      "copas_efl": 2,
+      "titulos_champions_league": 0,
+      "titulos_europa_league": 0,
+      "total_trofeos_principales": 29
+    },
+    "info_temporada_actual": {
+      "temporada": "2026/2027",
+      "director_tecnico": "Mikel Arteta",
+      "capitan": "Martin Ødegaard",
+      "sitio_web": "https://www.arsenal.com"
+    }
+  },
+  {
+    "id": "aston-villa-fc",
+    "nombre": "Aston Villa Football Club",
+    "nombre_corto": "Aston Villa",
+    "tla": "AVL",
+    "año_fundacion": 1874,
+    "ciudad": "Birmingham",
+    "url_escudo": "https://upload.wikimedia.org/wikipedia/en/f/f9/Aston_Villa_FC_crest_%282016%29.svg",
+    "estadio": {
+      "nombre": "Villa Park",
+      "capacidad": 42682,
+      "año_inauguracion": 1897,
+      "ubicacion": "Trinity Road, Birmingham, B6 6HE"
+    },
+    "miembros_e_hinchas": {
+      "cantidad_miembros_oficiales": 80000,
+      "apodo": "The Villans"
+    },
+    "palmares": {
+      "titulos_premier_league": 0,
+      "titulos_primera_division": 7,
+      "copas_fa": 7,
+      "copas_efl": 5,
+      "titulos_champions_league": 1,
+      "titulos_europa_league": 0,
+      "total_trofeos_principales": 20
+    },
+    "info_temporada_actual": {
+      "temporada": "2026/2027",
+      "director_tecnico": "Unai Emery",
+      "capitan": "John McGinn",
+      "sitio_web": "https://www.avfc.co.uk"
+    }
+  },
+  {
+    "id": "afc-bournemouth",
+    "nombre": "Athletic Football Club Bournemouth",
+    "nombre_corto": "Bournemouth",
+    "tla": "BOU",
+    "año_fundacion": 1899,
+    "ciudad": "Bournemouth",
+    "url_escudo": "https://upload.wikimedia.org/wikipedia/en/e/e5/AFC_Bournemouth_%282013%29.svg",
+    "estadio": {
+      "nombre": "Vitality Stadium",
+      "capacidad": 11307,
+      "año_inauguracion": 1910,
+      "ubicacion": "Dean Court, Bournemouth, BH7 7AF"
+    },
+    "miembros_e_hinchas": {
+      "cantidad_miembros_oficiales": 30000,
+      "apodo": "The Cherries"
+    },
+    "palmares": {
+      "titulos_premier_league": 0,
+      "titulos_primera_division": 0,
+      "copas_fa": 0,
+      "copas_efl": 0,
+      "titulos_champions_league": 0,
+      "titulos_europa_league": 0,
+      "total_trofeos_principales": 0
+    },
+    "info_temporada_actual": {
+      "temporada": "2026/2027",
+      "director_tecnico": "Marco Rose",
+      "capitan": "Adam Smith",
+      "sitio_web": "https://www.afcb.co.uk"
+    }
+  },
+  {
+    "id": "brentford-fc",
+    "nombre": "Brentford Football Club",
+    "nombre_corto": "Brentford",
+    "tla": "BRE",
+    "año_fundacion": 1889,
+    "ciudad": "Londres",
+    "url_escudo": "https://upload.wikimedia.org/wikipedia/en/2/2a/Brentford_FC_crest.svg",
+    "estadio": {
+      "nombre": "Gtech Community Stadium",
+      "capacidad": 17250,
+      "año_inauguracion": 2020,
+      "ubicacion": "Lionel Road South, Brentford, TW8 0RU"
+    },
+    "miembros_e_hinchas": {
+      "cantidad_miembros_oficiales": 40000,
+      "apodo": "The Bees"
+    },
+    "palmares": {
+      "titulos_premier_league": 0,
+      "titulos_primera_division": 0,
+      "copas_fa": 0,
+      "copas_efl": 0,
+      "titulos_champions_league": 0,
+      "titulos_europa_league": 0,
+      "total_trofeos_principales": 0
+    },
+    "info_temporada_actual": {
+      "temporada": "2026/2027",
+      "director_tecnico": "Keith Andrews",
+      "capitan": "Nathan Collins",
+      "sitio_web": "https://www.brentfordfc.com"
+    }
+  },
+  {
+    "id": "brighton-hove-albion",
+    "nombre": "Brighton & Hove Albion Football Club",
+    "nombre_corto": "Brighton",
+    "tla": "BHA",
+    "año_fundacion": 1901,
+    "ciudad": "Brighton",
+    "url_escudo": "https://upload.wikimedia.org/wikipedia/en/f/fd/Brighton_%26_Hove_Albion_logo.svg",
+    "estadio": {
+      "nombre": "Amex Stadium",
+      "capacidad": 31800,
+      "año_inauguracion": 2011,
+      "ubicacion": "Village Way, Brighton, BN1 9BL"
+    },
+    "miembros_e_hinchas": {
+      "cantidad_miembros_oficiales": 55000,
+      "apodo": "The Seagulls"
+    },
+    "palmares": {
+      "titulos_premier_league": 0,
+      "titulos_primera_division": 0,
+      "copas_fa": 0,
+      "copas_efl": 0,
+      "titulos_champions_league": 0,
+      "titulos_europa_league": 0,
+      "total_trofeos_principales": 0
+    },
+    "info_temporada_actual": {
+      "temporada": "2026/2027",
+      "director_tecnico": "Fabian Hürzeler",
+      "capitan": "Lewis Dunk",
+      "sitio_web": "https://www.brightonandhovealbion.com"
+    }
+  },
+  {
+    "id": "chelsea-fc",
+    "nombre": "Chelsea Football Club",
+    "nombre_corto": "Chelsea",
+    "tla": "CHE",
+    "año_fundacion": 1905,
+    "ciudad": "Londres",
+    "url_escudo": "https://upload.wikimedia.org/wikipedia/en/c/cc/Chelsea_FC.svg",
+    "estadio": {
+      "nombre": "Stamford Bridge",
+      "capacidad": 40341,
+      "año_inauguracion": 1877,
+      "ubicacion": "Fulham Road, London, SW6 1HS"
+    },
+    "miembros_e_hinchas": {
+      "cantidad_miembros_oficiales": 150000,
+      "apodo": "The Blues"
+    },
+    "palmares": {
+      "titulos_premier_league": 5,
+      "titulos_primera_division": 1,
+      "copas_fa": 8,
+      "copas_efl": 5,
+      "titulos_champions_league": 2,
+      "titulos_europa_league": 2,
+      "total_trofeos_principales": 23
+    },
+    "info_temporada_actual": {
+      "temporada": "2026/2027",
+      "director_tecnico": "Xabi Alonso",
+      "capitan": "Reece James",
+      "sitio_web": "https://www.chelseafc.com"
+    }
+  },
+  {
+    "id": "coventry-city",
+    "nombre": "Coventry City Football Club",
+    "nombre_corto": "Coventry City",
+    "tla": "COV",
+    "año_fundacion": 1883,
+    "ciudad": "Coventry",
+    "url_escudo": "https://upload.wikimedia.org/wikipedia/en/7/7b/Coventry_City_FC_crest.svg",
+    "estadio": {
+      "nombre": "Coventry Building Society Arena",
+      "capacidad": 32609,
+      "año_inauguracion": 2005,
+      "ubicacion": "Judds Lane, Longford, Coventry, CV6 6GE"
+    },
+    "miembros_e_hinchas": {
+      "cantidad_miembros_oficiales": 25000,
+      "apodo": "The Sky Blues"
+    },
+    "palmares": {
+      "titulos_premier_league": 0,
+      "titulos_primera_division": 0,
+      "copas_fa": 1,
+      "copas_efl": 0,
+      "titulos_champions_league": 0,
+      "titulos_europa_league": 0,
+      "total_trofeos_principales": 1
+    },
+    "info_temporada_actual": {
+      "temporada": "2026/2027",
+      "director_tecnico": "Frank Lampard",
+      "capitan": "Ben Sheaf",
+      "sitio_web": "https://www.ccfc.co.uk"
+    }
+  },
+  {
+    "id": "crystal-palace-fc",
+    "nombre": "Crystal Palace Football Club",
+    "nombre_corto": "Crystal Palace",
+    "tla": "CRY",
+    "año_fundacion": 1905,
+    "ciudad": "Londres",
+    "url_escudo": "https://upload.wikimedia.org/wikipedia/en/0/0c/Crystal_Palace_FC_logo.svg",
+    "estadio": {
+      "nombre": "Selhurst Park",
+      "capacidad": 25486,
+      "año_inauguracion": 1924,
+      "ubicacion": "Whitehorse Lane, London, SE25 6PU"
+    },
+    "miembros_e_hinchas": {
+      "cantidad_miembros_oficiales": 45000,
+      "apodo": "The Eagles"
+    },
+    "palmares": {
+      "titulos_premier_league": 0,
+      "titulos_primera_division": 0,
+      "copas_fa": 0,
+      "copas_efl": 0,
+      "titulos_champions_league": 0,
+      "titulos_europa_league": 0,
+      "total_trofeos_principales": 0
+    },
+    "info_temporada_actual": {
+      "temporada": "2026/2027",
+      "director_tecnico": "Pierre Sage",
+      "capitan": "Dean Henderson",
+      "sitio_web": "https://www.cpfc.co.uk"
+    }
+  },
+  {
+    "id": "everton-fc",
+    "nombre": "Everton Football Club",
+    "nombre_corto": "Everton",
+    "tla": "EVE",
+    "año_fundacion": 1878,
+    "ciudad": "Liverpool",
+    "url_escudo": "https://upload.wikimedia.org/wikipedia/en/7/7c/Everton_FC_logo.svg",
+    "estadio": {
+      "nombre": "Everton Stadium",
+      "capacidad": 52888,
+      "año_inauguracion": 2025,
+      "ubicacion": "Bramley-Moore Dock, Regent Road, Liverpool, L3 0AP"
+    },
+    "miembros_e_hinchas": {
+      "cantidad_miembros_oficiales": 80000,
+      "apodo": "The Toffees"
+    },
+    "palmares": {
+      "titulos_premier_league": 0,
+      "titulos_primera_division": 9,
+      "copas_fa": 5,
+      "copas_efl": 0,
+      "titulos_champions_league": 0,
+      "titulos_europa_league": 0,
+      "total_trofeos_principales": 14
+    },
+    "info_temporada_actual": {
+      "temporada": "2026/2027",
+      "director_tecnico": "David Moyes",
+      "capitan": "James Tarkowski",
+      "sitio_web": "https://www.evertonfc.com"
+    }
+  },
+  {
+    "id": "fulham-fc",
+    "nombre": "Fulham Football Club",
+    "nombre_corto": "Fulham",
+    "tla": "FUL",
+    "año_fundacion": 1879,
+    "ciudad": "Londres",
+    "url_escudo": "https://upload.wikimedia.org/wikipedia/en/e/eb/Fulham_FC_%28shield%29.svg",
+    "estadio": {
+      "nombre": "Craven Cottage",
+      "capacidad": 29600,
+      "año_inauguracion": 1896,
+      "ubicacion": "Stevenage Road, London, SW6 6HH"
+    },
+    "miembros_e_hinchas": {
+      "cantidad_miembros_oficiales": 35000,
+      "apodo": "The Cottagers"
+    },
+    "palmares": {
+      "titulos_premier_league": 0,
+      "titulos_primera_division": 0,
+      "copas_fa": 0,
+      "copas_efl": 0,
+      "titulos_champions_league": 0,
+      "titulos_europa_league": 0,
+      "total_trofeos_principales": 0
+    },
+    "info_temporada_actual": {
+      "temporada": "2026/2027",
+      "director_tecnico": "Álvaro Arbeloa",
+      "capitan": "Tom Cairney",
+      "sitio_web": "https://www.fulhamfc.com"
+    }
+  },
+  {
+    "id": "hull-city",
+    "nombre": "Hull City Association Football Club",
+    "nombre_corto": "Hull City",
+    "tla": "HUL",
+    "año_fundacion": 1904,
+    "ciudad": "Hull",
+    "url_escudo": "https://upload.wikimedia.org/wikipedia/en/5/54/Hull_City_A.F.C._logo.svg",
+    "estadio": {
+      "nombre": "MKM Stadium",
+      "capacidad": 25586,
+      "año_inauguracion": 2002,
+      "ubicacion": "The Circle, Walton Street, Hull, HU3 6HU"
+    },
+    "miembros_e_hinchas": {
+      "cantidad_miembros_oficiales": 22000,
+      "apodo": "The Tigers"
+    },
+    "palmares": {
+      "titulos_premier_league": 0,
+      "titulos_primera_division": 0,
+      "copas_fa": 0,
+      "copas_efl": 0,
+      "titulos_champions_league": 0,
+      "titulos_europa_league": 0,
+      "total_trofeos_principales": 0
+    },
+    "info_temporada_actual": {
+      "temporada": "2026/2027",
+      "director_tecnico": "Tim Walter",
+      "capitan": "Lewie Coyle",
+      "sitio_web": "https://www.wearehullcity.co.uk"
+    }
+  },
+  {
+    "id": "ipswich-town",
+    "nombre": "Ipswich Town Football Club",
+    "nombre_corto": "Ipswich",
+    "tla": "IPS",
+    "año_fundacion": 1878,
+    "ciudad": "Ipswich",
+    "url_escudo": "https://upload.wikimedia.org/wikipedia/en/4/43/Ipswich_Town.svg",
+    "estadio": {
+      "nombre": "Portman Road",
+      "capacidad": 29673,
+      "año_inauguracion": 1884,
+      "ubicacion": "Portman Road, Ipswich, IP1 2DA"
+    },
+    "miembros_e_hinchas": {
+      "cantidad_miembros_oficiales": 30000,
+      "apodo": "The Tractor Boys"
+    },
+    "palmares": {
+      "titulos_premier_league": 0,
+      "titulos_primera_division": 1,
+      "copas_fa": 1,
+      "copas_efl": 0,
+      "titulos_champions_league": 0,
+      "titulos_europa_league": 1,
+      "total_trofeos_principales": 3
+    },
+    "info_temporada_actual": {
+      "temporada": "2026/2027",
+      "director_tecnico": "Kieran McKenna",
+      "capitan": "Dara O'Shea",
+      "sitio_web": "https://www.itfc.co.uk"
+    }
+  },
+  {
+    "id": "liverpool-fc",
+    "nombre": "Liverpool Football Club",
+    "nombre_corto": "Liverpool",
+    "tla": "LIV",
+    "año_fundacion": 1892,
+    "ciudad": "Liverpool",
+    "url_escudo": "https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg",
+    "estadio": {
+      "nombre": "Anfield",
+      "capacidad": 61276,
+      "año_inauguracion": 1884,
+      "ubicacion": "Anfield Road, Liverpool, L4 0TH"
+    },
+    "miembros_e_hinchas": {
+      "cantidad_miembros_oficiales": 300000,
+      "apodo": "The Reds"
+    },
+    "palmares": {
+      "titulos_premier_league": 1,
+      "titulos_primera_division": 18,
+      "copas_fa": 8,
+      "copas_efl": 10,
+      "titulos_champions_league": 6,
+      "titulos_europa_league": 3,
+      "total_trofeos_principales": 46
+    },
+    "info_temporada_actual": {
+      "temporada": "2026/2027",
+      "director_tecnico": "Andoni Iraola",
+      "capitan": "Virgil van Dijk",
+      "sitio_web": "https://www.liverpoolfc.com"
+    }
+  },
+  {
+    "id": "manchester-city",
+    "nombre": "Manchester City Football Club",
+    "nombre_corto": "Man City",
+    "tla": "MCI",
+    "año_fundacion": 1880,
+    "ciudad": "Manchester",
+    "url_escudo": "https://upload.wikimedia.org/wikipedia/en/e/eb/Manchester_City_FC_badge.svg",
+    "estadio": {
+      "nombre": "Etihad Stadium",
+      "capacidad": 60000,
+      "año_inauguracion": 2003,
+      "ubicacion": "Ashton New Road, Manchester, M11 3FF"
+    },
+    "miembros_e_hinchas": {
+      "cantidad_miembros_oficiales": 150000,
+      "apodo": "The Cityzens"
+    },
+    "palmares": {
+      "titulos_premier_league": 8,
+      "titulos_primera_division": 2,
+      "copas_fa": 7,
+      "copas_efl": 8,
+      "titulos_champions_league": 1,
+      "titulos_europa_league": 0,
+      "total_trofeos_principales": 26
+    },
+    "info_temporada_actual": {
+      "temporada": "2026/2027",
+      "director_tecnico": "Enzo Maresca",
+      "capitan": "Rúben Dias",
+      "sitio_web": "https://www.mancity.com"
+    }
+  },
+  {
+    "id": "manchester-united",
+    "nombre": "Manchester United Football Club",
+    "nombre_corto": "Man United",
+    "tla": "MUN",
+    "año_fundacion": 1878,
+    "ciudad": "Manchester",
+    "url_escudo": "https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg",
+    "estadio": {
+      "nombre": "Old Trafford",
+      "capacidad": 74310,
+      "año_inauguracion": 1910,
+      "ubicacion": "Sir Matt Busby Way, Manchester, M16 0RA"
+    },
+    "miembros_e_hinchas": {
+      "cantidad_miembros_oficiales": 350000,
+      "apodo": "The Red Devils"
+    },
+    "palmares": {
+      "titulos_premier_league": 13,
+      "titulos_primera_division": 7,
+      "copas_fa": 13,
+      "copas_efl": 6,
+      "titulos_champions_league": 3,
+      "titulos_europa_league": 1,
+      "total_trofeos_principales": 43
+    },
+    "info_temporada_actual": {
+      "temporada": "2026/2027",
+      "director_tecnico": "Michael Carrick",
+      "capitan": "Bruno Fernandes",
+      "sitio_web": "https://www.manutd.com"
+    }
+  },
+  {
+    "id": "newcastle-united",
+    "nombre": "Newcastle United Football Club",
+    "nombre_corto": "Newcastle",
+    "tla": "NEW",
+    "año_fundacion": 1892,
+    "ciudad": "Newcastle upon Tyne",
+    "url_escudo": "https://upload.wikimedia.org/wikipedia/en/5/56/Newcastle_United_Logo.svg",
+    "estadio": {
+      "nombre": "St. James' Park",
+      "capacidad": 52305,
+      "año_inauguracion": 1892,
+      "ubicacion": "Strawberry Place, Newcastle upon Tyne, NE1 4ST"
+    },
+    "miembros_e_hinchas": {
+      "cantidad_miembros_oficiales": 100000,
+      "apodo": "The Magpies"
+    },
+    "palmares": {
+      "titulos_premier_league": 0,
+      "titulos_primera_division": 4,
+      "copas_fa": 6,
+      "copas_efl": 0,
+      "titulos_champions_league": 0,
+      "titulos_europa_league": 1,
+      "total_trofeos_principales": 11
+    },
+    "info_temporada_actual": {
+      "temporada": "2026/2027",
+      "director_tecnico": "Matthias Jaissle",
+      "capitan": "Dan Burn",
+      "sitio_web": "https://www.nufc.co.uk"
+    }
+  },
+  {
+    "id": "nottingham-forest",
+    "nombre": "Nottingham Forest Football Club",
+    "nombre_corto": "Nott'm Forest",
+    "tla": "NFO",
+    "año_fundacion": 1865,
+    "ciudad": "Nottingham",
+    "url_escudo": "https://upload.wikimedia.org/wikipedia/en/e/e5/Nottingham_Forest_F.C._logo.svg",
+    "estadio": {
+      "nombre": "City Ground",
+      "capacidad": 30404,
+      "año_inauguracion": 1898,
+      "ubicacion": "Trentside N, West Bridgford, Nottingham, NG2 5FJ"
+    },
+    "miembros_e_hinchas": {
+      "cantidad_miembros_oficiales": 45000,
+      "apodo": "The Tricky Trees"
+    },
+    "palmares": {
+      "titulos_premier_league": 0,
+      "titulos_primera_division": 1,
+      "copas_fa": 2,
+      "copas_efl": 4,
+      "titulos_champions_league": 2,
+      "titulos_europa_league": 0,
+      "total_trofeos_principales": 9
+    },
+    "info_temporada_actual": {
+      "temporada": "2026/2027",
+      "director_tecnico": "Oliver Glasner",
+      "capitan": "Ryan Yates",
+      "sitio_web": "https://www.nottinghamforest.co.uk"
+    }
+  },
+  {
+    "id": "sunderland-afc",
+    "nombre": "Sunderland Association Football Club",
+    "nombre_corto": "Sunderland",
+    "tla": "SUN",
+    "año_fundacion": 1879,
+    "ciudad": "Sunderland",
+    "url_escudo": "https://upload.wikimedia.org/wikipedia/en/7/77/Logo_Sunderland.svg",
+    "estadio": {
+      "nombre": "Stadium of Light",
+      "capacidad": 49000,
+      "año_inauguracion": 1997,
+      "ubicacion": "Stadium of Light, Sunderland, SR5 1SU"
+    },
+    "miembros_e_hinchas": {
+      "cantidad_miembros_oficiales": 40000,
+      "apodo": "The Black Cats"
+    },
+    "palmares": {
+      "titulos_premier_league": 0,
+      "titulos_primera_division": 6,
+      "copas_fa": 2,
+      "copas_efl": 0,
+      "titulos_champions_league": 0,
+      "titulos_europa_league": 0,
+      "total_trofeos_principales": 8
+    },
+    "info_temporada_actual": {
+      "temporada": "2026/2027",
+      "director_tecnico": "Régis Le Bris",
+      "capitan": "Dan Neil",
+      "sitio_web": "https://www.safc.com"
+    }
+  },
+  {
+    "id": "tottenham-hotspur",
+    "nombre": "Tottenham Hotspur Football Club",
+    "nombre_corto": "Tottenham",
+    "tla": "TOT",
+    "año_fundacion": 1882,
+    "ciudad": "Londres",
+    "url_escudo": "https://upload.wikimedia.org/wikipedia/en/b/b4/Tottenham_Hotspur.svg",
+    "estadio": {
+      "nombre": "Tottenham Hotspur Stadium",
+      "capacidad": 62850,
+      "año_inauguracion": 2019,
+      "ubicacion": "782 High Road, London, N17 0BX"
+    },
+    "miembros_e_hinchas": {
+      "cantidad_miembros_oficiales": 180000,
+      "apodo": "Spurs"
+    },
+    "palmares": {
+      "titulos_premier_league": 0,
+      "titulos_primera_division": 2,
+      "copas_fa": 8,
+      "copas_efl": 4,
+      "titulos_champions_league": 0,
+      "titulos_europa_league": 2,
+      "total_trofeos_principales": 16
+    },
+    "info_temporada_actual": {
+      "temporada": "2026/2027",
+      "director_tecnico": "Roberto De Zerbi",
+      "capitan": "Micky van de Ven",
+      "sitio_web": "https://www.tottenhamhotspur.com"
+    }
+  },
+  {
+    "id": "wolverhampton-wanderers",
+    "nombre": "Wolverhampton Wanderers Football Club",
+    "nombre_corto": "Wolves",
+    "tla": "WOL",
+    "año_fundacion": 1877,
+    "ciudad": "Wolverhampton",
+    "url_escudo": "https://upload.wikimedia.org/wikipedia/en/f/fc/Wolverhampton_Wanderers_FC_crest.svg",
+    "estadio": {
+      "nombre": "Molineux Stadium",
+      "capacidad": 32050,
+      "año_inauguracion": 1889,
+      "ubicacion": "Waterloo Road, Wolverhampton, WV1 4QR"
+    },
+    "miembros_e_hinchas": {
+      "cantidad_miembros_oficiales": 60000,
+      "apodo": "Wolves"
+    },
+    "palmares": {
+      "titulos_premier_league": 0,
+      "titulos_primera_division": 3,
+      "copas_fa": 4,
+      "copas_efl": 2,
+      "titulos_champions_league": 0,
+      "titulos_europa_league": 0,
+      "total_trofeos_principales": 9
+    },
+    "info_temporada_actual": {
+      "temporada": "2026/2027",
+      "director_tecnico": "Gary O'Neil",
+      "capitan": "Mario Lemina",
+      "sitio_web": "https://www.wolves.co.uk"
+    }
+  }
+]
