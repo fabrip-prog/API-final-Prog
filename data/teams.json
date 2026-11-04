@@ -1,6 +1,6 @@
 [
   {
-    "id": "arsenal-fc",
+    "id": 1,
     "nombre": "Arsenal Football Club",
     "nombre_corto": "Arsenal",
     "tla": "ARS",
@@ -34,7 +34,7 @@
     }
   },
   {
-    "id": "aston-villa-fc",
+    "id": 2,
     "nombre": "Aston Villa Football Club",
     "nombre_corto": "Aston Villa",
     "tla": "AVL",
@@ -68,7 +68,7 @@
     }
   },
   {
-    "id": "afc-bournemouth",
+    "id": 3,
     "nombre": "Athletic Football Club Bournemouth",
     "nombre_corto": "Bournemouth",
     "tla": "BOU",
@@ -102,7 +102,7 @@
     }
   },
   {
-    "id": "brentford-fc",
+    "id": 4,
     "nombre": "Brentford Football Club",
     "nombre_corto": "Brentford",
     "tla": "BRE",
@@ -136,7 +136,7 @@
     }
   },
   {
-    "id": "brighton-hove-albion",
+    "id": 5,
     "nombre": "Brighton & Hove Albion Football Club",
     "nombre_corto": "Brighton",
     "tla": "BHA",
@@ -170,7 +170,7 @@
     }
   },
   {
-    "id": "chelsea-fc",
+    "id": 6,
     "nombre": "Chelsea Football Club",
     "nombre_corto": "Chelsea",
     "tla": "CHE",
@@ -204,7 +204,7 @@
     }
   },
   {
-    "id": "coventry-city",
+    "id": 7,
     "nombre": "Coventry City Football Club",
     "nombre_corto": "Coventry City",
     "tla": "COV",
@@ -238,7 +238,7 @@
     }
   },
   {
-    "id": "crystal-palace-fc",
+    "id": 8,
     "nombre": "Crystal Palace Football Club",
     "nombre_corto": "Crystal Palace",
     "tla": "CRY",
@@ -272,7 +272,8 @@
     }
   },
   {
-    "id": "everton-fc",
+    "id": 9,
+    "slug": "everton-fc",
     "nombre": "Everton Football Club",
     "nombre_corto": "Everton",
     "tla": "EVE",
@@ -306,7 +307,8 @@
     }
   },
   {
-    "id": "fulham-fc",
+    "id": 10,
+    "slug": "fulham-fc",
     "nombre": "Fulham Football Club",
     "nombre_corto": "Fulham",
     "tla": "FUL",
@@ -340,7 +342,8 @@
     }
   },
   {
-    "id": "hull-city",
+    "id": 11,
+    "slug": "hull-city",
     "nombre": "Hull City Association Football Club",
     "nombre_corto": "Hull City",
     "tla": "HUL",
@@ -374,7 +377,8 @@
     }
   },
   {
-    "id": "ipswich-town",
+    "id": 12,
+    "slug": "ipswich-town",
     "nombre": "Ipswich Town Football Club",
     "nombre_corto": "Ipswich",
     "tla": "IPS",
@@ -408,7 +412,8 @@
     }
   },
   {
-    "id": "liverpool-fc",
+    "id": 13,
+    "slug": "liverpool-fc",
     "nombre": "Liverpool Football Club",
     "nombre_corto": "Liverpool",
     "tla": "LIV",
@@ -442,7 +447,8 @@
     }
   },
   {
-    "id": "manchester-city",
+    "id": 14,
+    "slug": "manchester-city",
     "nombre": "Manchester City Football Club",
     "nombre_corto": "Man City",
     "tla": "MCI",
@@ -476,7 +482,8 @@
     }
   },
   {
-    "id": "manchester-united",
+    "id": 15,
+    "slug": "manchester-united",
     "nombre": "Manchester United Football Club",
     "nombre_corto": "Man United",
     "tla": "MUN",
@@ -510,7 +517,8 @@
     }
   },
   {
-    "id": "newcastle-united",
+    "id": 16,
+    "slug": "newcastle-united",
     "nombre": "Newcastle United Football Club",
     "nombre_corto": "Newcastle",
     "tla": "NEW",
@@ -544,7 +552,8 @@
     }
   },
   {
-    "id": "nottingham-forest",
+    "id": 17,
+    "slug": "nottingham-forest",
     "nombre": "Nottingham Forest Football Club",
     "nombre_corto": "Nott'm Forest",
     "tla": "NFO",
@@ -578,7 +587,8 @@
     }
   },
   {
-    "id": "sunderland-afc",
+    "id": 18,
+    "slug": "sunderland-afc",
     "nombre": "Sunderland Association Football Club",
     "nombre_corto": "Sunderland",
     "tla": "SUN",
@@ -612,7 +622,8 @@
     }
   },
   {
-    "id": "tottenham-hotspur",
+    "id": 19,
+    "slug": "tottenham-hotspur",
     "nombre": "Tottenham Hotspur Football Club",
     "nombre_corto": "Tottenham",
     "tla": "TOT",
@@ -646,7 +657,8 @@
     }
   },
   {
-    "id": "wolverhampton-wanderers",
+    "id": 20,
+    "slug": "wolverhampton-wanderers",
     "nombre": "Wolverhampton Wanderers Football Club",
     "nombre_corto": "Wolves",
     "tla": "WOL",

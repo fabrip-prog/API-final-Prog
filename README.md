@@ -18,17 +18,22 @@ Incluye persistencia relacional con **MySQL / MariaDB** (compatible con **XAMPP*
   - [Prevención de Inyecciones SQL](#prevención-de-inyecciones-sql)
 - [Estructura del Proyecto](#estructura-del-proyecto)
 - [Modelo de Datos](#modelo-de-datos)
+- [Métodos HTTP en la API REST (GET, POST, PUT, DELETE)](#métodos-http-en-la-api-rest-get-post-put-delete)
+  - [Explicación Funcional de Cada Método](#explicación-funcional-de-cada-método)
 - [Referencia de Endpoints](#referencia-de-endpoints)
   - [1. Raíz / Información General](#1-raíz--información-general)
-  - [2. Listado de Equipos](#2-listado-de-equipos)
-  - [3. Detalle de Equipo](#3-detalle-de-equipo)
-  - [4. Estadio de un Equipo](#4-estadio-de-un-equipo)
-  - [5. Palmarés de un Equipo](#5-palmarés-de-un-equipo)
-  - [6. Info de Temporada Actual](#6-info-de-temporada-actual)
-  - [7. Resumen Global de la Liga](#7-resumen-global-de-la-liga)
-  - [8. Equipos Agrupados por Ciudad](#8-equipos-agrupados-por-ciudad)
-  - [9. Ranking de Trofeos](#9-ranking-de-trofeos)
-  - [10. Ranking de Estadios](#10-ranking-de-estadios)
+  - [2. Listado de Equipos (GET)](#2-listado-de-equipos-get)
+  - [3. Detalle de Equipo (GET)](#3-detalle-de-equipo-get)
+  - [4. Crear un Equipo (POST)](#4-crear-un-equipo-post)
+  - [5. Actualizar un Equipo (PUT)](#5-actualizar-un-equipo-put)
+  - [6. Eliminar un Equipo (DELETE)](#6-eliminar-un-equipo-delete)
+  - [7. Estadio de un Equipo (GET)](#7-estadio-de-un-equipo-get)
+  - [8. Palmarés de un Equipo (GET)](#8-palmarés-de-un-equipo-get)
+  - [9. Info de Temporada Actual (GET)](#9-info-de-temporada-actual-get)
+  - [10. Resumen Global de la Liga (GET)](#10-resumen-global-de-la-liga-get)
+  - [11. Equipos Agrupados por Ciudad (GET)](#11-equipos-agrupados-por-ciudad-get)
+  - [12. Ranking de Trofeos (GET)](#12-ranking-de-trofeos-get)
+  - [13. Ranking de Estadios (GET)](#13-ranking-de-estadios-get)
 - [Parámetros de Consulta (Query Params)](#parámetros-de-consulta-query-params)
 - [Manejo de Errores](#manejo-de-errores)
 - [Clubes de la Temporada 2026/27](#clubes-de-la-temporada-202627)
@@ -141,7 +146,8 @@ erDiagram
     teams ||--o{ season_info : "1 a N"
 
     teams {
-        VARCHAR id PK
+        INT id PK
+        VARCHAR slug UK
         VARCHAR nombre
         VARCHAR nombre_corto
         VARCHAR tla UK
@@ -152,7 +158,7 @@ erDiagram
 
     stadiums {
         INT id PK
-        VARCHAR team_id FK
+        INT team_id FK
         VARCHAR nombre
         INT capacidad
         INT anio_inauguracion
@@ -161,14 +167,14 @@ erDiagram
 
     members_info {
         INT id PK
-        VARCHAR team_id FK
+        INT team_id FK
         INT cantidad_miembros_oficiales
         VARCHAR apodo
     }
 
     honours {
         INT id PK
-        VARCHAR team_id FK
+        INT team_id FK
         INT titulos_premier_league
         INT titulos_primera_division
         INT copas_fa
@@ -180,7 +186,7 @@ erDiagram
 
     season_info {
         INT id PK
-        VARCHAR team_id FK
+        INT team_id FK
         VARCHAR temporada
         VARCHAR director_tecnico
         VARCHAR capitan
@@ -193,7 +199,8 @@ erDiagram
 El esquema se autoinicializa mediante `src/database/schema.js` y también puede ejecutarse manualmente desde `src/database/schema.sql` en phpMyAdmin:
 
 1. **`teams` (Tabla Principal)**:
-   * `id` (`VARCHAR(50)`, PRIMARY KEY): Identificador kebab-case del club (ej. `arsenal-fc`).
+   * `id` (`INT`, AUTO_INCREMENT PRIMARY KEY): Identificador numérico entero del club (`1, 2, 3... 20`).
+   * `slug` (`VARCHAR(60)`, UNIQUE): Identificador kebab-case secundario (ej. `arsenal-fc`).
    * `nombre` (`VARCHAR(150)`, NOT NULL): Nombre oficial institucional.
    * `nombre_corto` (`VARCHAR(100)`, NOT NULL): Nombre abreviado / coloquial.
    * `tla` (`VARCHAR(10)`, NOT NULL, UNIQUE): Código de 3 letras de la Premier League (ej. `ARS`).
@@ -203,7 +210,7 @@ El esquema se autoinicializa mediante `src/database/schema.js` y también puede 
 
 2. **`stadiums` (Relación 1:1)**:
    * `id` (`INT`, AUTO_INCREMENT PRIMARY KEY).
-   * `team_id` (`VARCHAR(50)`, NOT NULL, UNIQUE, FOREIGN KEY -> `teams.id` ON DELETE CASCADE).
+   * `team_id` (`INT`, NOT NULL, UNIQUE, FOREIGN KEY -> `teams.id` ON DELETE CASCADE).
    * `nombre` (`VARCHAR(150)`, NOT NULL): Nombre del estadio.
    * `capacidad` (`INT`, NOT NULL): Capacidad de espectadores.
    * `año_inauguracion` (`INT`): Año de apertura del estadio.
@@ -211,19 +218,19 @@ El esquema se autoinicializa mediante `src/database/schema.js` y también puede 
 
 3. **`members_info` (Relación 1:1)**:
    * `id` (`INT`, AUTO_INCREMENT PRIMARY KEY).
-   * `team_id` (`VARCHAR(50)`, NOT NULL, UNIQUE, FOREIGN KEY -> `teams.id` ON DELETE CASCADE).
+   * `team_id` (`INT`, NOT NULL, UNIQUE, FOREIGN KEY -> `teams.id` ON DELETE CASCADE).
    * `cantidad_miembros_oficiales` (`INT`, DEFAULT 0): Número de socios oficiales registrados.
    * `apodo` (`VARCHAR(100)`): Sobrenombre tradicional del club (ej. *The Gunners*, *The Toffees*).
 
 4. **`honours` (Relación 1:1)**:
    * `id` (`INT`, AUTO_INCREMENT PRIMARY KEY).
-   * `team_id` (`VARCHAR(50)`, NOT NULL, UNIQUE, FOREIGN KEY -> `teams.id` ON DELETE CASCADE).
+   * `team_id` (`INT`, NOT NULL, UNIQUE, FOREIGN KEY -> `teams.id` ON DELETE CASCADE).
    * `titulos_premier_league`, `titulos_primera_division`, `copas_fa`, `copas_efl`, `titulos_champions_league`, `titulos_europa_league` (`INT`, DEFAULT 0).
    * `total_trofeos_principales` (`INT`, DEFAULT 0): Suma total de los títulos mayores.
 
 5. **`season_info` (Relación 1:N)**:
    * `id` (`INT`, AUTO_INCREMENT PRIMARY KEY).
-   * `team_id` (`VARCHAR(50)`, NOT NULL, FOREIGN KEY -> `teams.id` ON DELETE CASCADE).
+   * `team_id` (`INT`, NOT NULL, FOREIGN KEY -> `teams.id` ON DELETE CASCADE).
    * `temporada` (`VARCHAR(20)`, NOT NULL): Temporada deportiva (ej. `2026/2027`).
    * `director_tecnico` (`VARCHAR(100)`): Entrenador o DT en funciones.
    * `capitan` (`VARCHAR(100)`): Capitán del primer equipo.
@@ -247,12 +254,15 @@ Todas las operaciones dinámicas (búsqueda full-text, filtrado por ciudad, DT, 
 
 ## Estructura del Proyecto
 
+El proyecto está organizado siguiendo el patrón arquitectónico en capas **Modelo-Controlador-Rutas (MVC / Layered Architecture)** para garantizar separación de responsabilidades, alta mantenibilidad y desacoplamiento del código:
+
 ```
 API final/
 ├── .env                        # Variables de entorno (conexión MySQL / XAMPP)
 ├── .env.example                # Plantilla de variables de entorno
+├── apuntes.md                  # Apuntes técnicos y explicación detallada de cada archivo
 ├── data/
-│   └── teams.json              # Datos fuente iniciales de la liga
+│   └── teams.json              # Datos fuente iniciales de la liga (seed)
 ├── src/
 │   ├── app.js                  # Punto de entrada de la aplicación Express y middlewares globales
 │   ├── database/
@@ -260,15 +270,27 @@ API final/
 │   │   ├── schema.js           # Definición de tablas DDL e índices en Node.js
 │   │   ├── schema.sql          # Script DDL SQL puro para importar en phpMyAdmin
 │   │   └── seed.js             # Script de migración y siembra de datos a MySQL
+│   ├── models/
+│   │   ├── team.model.js       # Capa de Modelo: acceso a datos SQL para equipos (consultas y filtros)
+│   │   └── stats.model.js      # Capa de Modelo: acceso a datos SQL para estadísticas y métricas
+│   ├── controllers/
+│   │   ├── teams.controller.js # Capa de Controlador: lógica de negocio y respuesta HTTP de equipos
+│   │   └── stats.controller.js # Capa de Controlador: lógica de negocio y respuesta HTTP de estadísticas
 │   ├── routes/
-│   │   ├── teams.js            # Rutas de consulta individual, listado, filtros y paginación (/api/teams)
-│   │   └── stats.js            # Rutas de estadísticas agregadas de la liga (/api/stats)
+│   │   ├── teams.js            # Capa de Rutas: definición de endpoints de equipos (/api/teams)
+│   │   └── stats.js            # Capa de Rutas: definición de endpoints de estadísticas (/api/stats)
 │   └── middleware/
 │       └── errorHandler.js     # Middleware de captura de 404 y manejador global de errores
 ├── package.json                # Manifiesto del proyecto, scripts y dependencias
 ├── package-lock.json           # Árbol de dependencias bloqueado
 └── README.md                   # Documentación completa de la API
 ```
+
+### Arquitectura en Capas (Rutas ➔ Controlador ➔ Modelo)
+
+1. **Rutas (`src/routes/`)**: Definen las URIs y métodos HTTP (`GET`), delegando inmediatamente el procesamiento a la función correspondiente del controlador sin mezclar lógica de negocio ni SQL.
+2. **Controladores (`src/controllers/`)**: Reciben los objetos `req`, `res` y `next`. Se encargan de validar parámetros, orquestar llamadas a uno o varios métodos del modelo, gestionar errores de negocio (ej. `404 Not Found`) y estructurar las respuestas JSON (`200 OK`).
+3. **Modelos (`src/models/`)**: Encapsulan toda la persistencia y acceso a datos con MySQL (`mysql2/promise`). Construyen las sentencias SQL preparadas, gestionan filtros dinámicos, ordenamiento, paginación y formateo de los registros relacionales.
 
 ---
 
@@ -278,7 +300,8 @@ Los registros procesados por la API y sembrados desde `data/teams.json` responde
 
 | Campo | Tipo | Descripción |
 |-------|------|-------------|
-| `id` | `string` | Identificador único en formato kebab-case (ej. `arsenal-fc`, `everton-fc`). Clave primaria en la tabla `teams`. |
+| `id` | `number` | Identificador numérico único entero (`1, 2, 3... 20`). Clave primaria en la tabla `teams`. |
+| `slug` | `string` | Identificador kebab-case secundario (ej. `arsenal-fc`, `everton-fc`). |
 | `nombre` | `string` | Nombre institucional completo del club. |
 | `nombre_corto` | `string` | Nombre común abreviado (ej. `Arsenal`, `Man City`). |
 | `tla` | `string` | Código de 3 letras oficial (Three-Letter Acronym, ej. `ARS`, `EVE`). Único en la tabla `teams`. |
@@ -294,7 +317,8 @@ Los registros procesados por la API y sembrados desde `data/teams.json` responde
 
 ```json
 {
-  "id": "everton-fc",
+  "id": 9,
+  "slug": "everton-fc",
   "nombre": "Everton Football Club",
   "nombre_corto": "Everton",
   "tla": "EVE",
@@ -331,6 +355,67 @@ Los registros procesados por la API y sembrados desde `data/teams.json` responde
 
 ---
 
+## Métodos HTTP en la API REST (GET, POST, PUT, DELETE)
+
+En el diseño de una arquitectura **RESTful**, las operaciones sobre los recursos del sistema se modelan mediante los métodos o verbos del protocolo **HTTP**, asociándose conceptualmente con el modelo de persistencia **CRUD** (*Create, Read, Update, Delete*):
+
+| Método HTTP | Operación CRUD | Descripción Funcional | Idempotente | Seguro (Safe) |
+|:-----------:|:--------------:|-----------------------|:-----------:|:-------------:|
+| **`GET`** | **Read** (Lectura) | Recupera y consulta la representación de recursos sin alterar el estado del servidor. | Sí | Sí |
+| **`POST`** | **Create** (Creación) | Envía datos en el cuerpo (`body`) para registrar un nuevo recurso en la base de datos. | No | No |
+| **`PUT`** | **Update** (Actualización) | Reemplaza o actualiza de forma completa un recurso existente identificado por su ID. | Sí | No |
+| **`DELETE`** | **Delete** (Eliminación) | Elimina permanentemente un recurso específico en la base de datos. | Sí | No |
+
+> [!NOTE]
+> * **Seguridad (Safe)**: Un método es seguro si su invocación está libre de efectos secundarios y no muta el estado de los datos en el servidor (ej. `GET`).
+> * **Idempotencia**: Un método es idempotente si ejecutar la misma solicitud una o múltiples veces consecutivas produce idéntico estado final en la base de datos (ej. `GET`, `PUT`, `DELETE`).
+
+---
+
+### Explicación Funcional de Cada Método
+
+#### 1. Método `GET` (Consultar y Leer)
+* **Propósito y Funcionalidad**: Permite a los clientes (navegadores web, aplicaciones móviles o herramientas como Postman) solicitar información almacenada sin generar modificaciones en la base de datos.
+* **Uso en esta API**:
+  * Es el método central implementado en la aplicación para consultar el catálogo de clubes de la Premier League y métricas de la competición.
+  * Admite parámetros en la URL (**Query Params**) para aplicar filtros simultáneos (`?city=`, `?manager=`, `?foundation_year=`), búsqueda por términos (`?search=`), ordenamiento (`?sort_by=&order=`) y paginación con metadatos calculada en MySQL (`?page=&limit=`).
+  * En subrecursos dedicados (como `/api/teams/:id/stadium`, `/api/teams/:id/honours` o `/api/teams/:id/manager`), permite proyectar de forma directa y optimizada únicamente la entidad requerida.
+* **Respuestas y Códigos HTTP habituales**:
+  * `200 OK`: La solicitud fue exitosa y se retorna el recurso o colección en formato JSON.
+  * `404 Not Found`: El identificador (`id` o `tla`) consultado no existe en la base de datos.
+
+#### 2. Método `POST` (Crear y Registrar)
+* **Propósito y Funcionalidad**: Se utiliza para enviar un conjunto de datos en el cuerpo de la petición (*request body* en formato JSON) con el objetivo de dar de alta un nuevo recurso en el sistema.
+* **Comportamiento en la Arquitectura**:
+  * La petición viaja con la cabecera `Content-Type: application/json` y es procesada en el servidor mediante el middleware global `express.json()` (configurado en `src/app.js`).
+  * En una operación como `POST /api/teams`, el servidor valida los campos obligatorios (nombre, TLA único, año de fundación, ciudad) e inserta el nuevo equipo en la tabla principal `teams`, distribuyendo los datos complementarios a sus tablas relacionales (`stadiums`, `members_info`, `honours` y `season_info`).
+* **Respuestas y Códigos HTTP habituales**:
+  * `201 Created`: El recurso se creó exitosamente y se retorna la entidad creada junto a su nuevo identificador (o cabecera `Location`).
+  * `400 Bad Request`: Los datos enviados son inválidos, están incompletos o no cumplen las restricciones del esquema.
+  * `409 Conflict`: Ya existe un registro con una clave única en conflicto (por ejemplo, un club con el mismo código `tla` o `id`).
+
+#### 3. Método `PUT` (Actualizar y Reemplazar)
+* **Propósito y Funcionalidad**: Se emplea para actualizar íntegramente el estado de un recurso ya existente, el cual se localiza mediante un parámetro de ruta (por ejemplo, `/api/teams/:id`).
+* **Comportamiento en la Arquitectura**:
+  * A diferencia de una modificación parcial (`PATCH`), `PUT` conceptualmente reemplaza por completo el estado del recurso con la nueva carga útil enviada en el cuerpo JSON.
+  * En una operación como `PUT /api/teams/:id`, el servidor comprueba la existencia del registro en MySQL, valida la información entrante y ejecuta sentencias de actualización (`UPDATE`) sobre las tablas vinculadas para sincronizar datos como el director técnico, capacidad del estadio o palmarés.
+* **Respuestas y Códigos HTTP habituales**:
+  * `200 OK`: El recurso se actualizó correctamente y se devuelve la versión resultante.
+  * `204 No Content`: La actualización se ejecutó con éxito pero la respuesta no incluye cuerpo.
+  * `400 Bad Request`: Error en el tipo de datos o validación del payload recibido.
+  * `404 Not Found`: El recurso que se desea actualizar no existe en la base de datos.
+
+#### 4. Método `DELETE` (Eliminar y Dar de Baja)
+* **Propósito y Funcionalidad**: Solicita la remoción permanente de un recurso específico identificado por su ID en la URL.
+* **Comportamiento en la Arquitectura**:
+  * En una operación como `DELETE /api/teams/:id`, el servidor ejecuta una sentencia `DELETE FROM teams WHERE id = ?`.
+  * **Integridad referencial y cascada (`ON DELETE CASCADE`)**: Gracias al diseño relacional configurado en el esquema MySQL (`src/database/schema.js`), al eliminarse un equipo en la tabla padre `teams`, el motor de base de datos elimina de manera automática, atómica y segura todas las filas vinculadas en `stadiums`, `members_info`, `honours` y `season_info`, impidiendo registros huérfanos o inconsistencias en la base de datos.
+* **Respuestas y Códigos HTTP habituales**:
+  * `200 OK` o `204 No Content`: El recurso fue eliminado satisfactoriamente.
+  * `404 Not Found`: El recurso que se intenta eliminar no existe en la base de datos.
+
+---
+
 ## Referencia de Endpoints
 
 ### Resumen de Rutas
@@ -340,6 +425,9 @@ Los registros procesados por la API y sembrados desde `data/teams.json` responde
 | `GET` | `/` | Información general de la API, versión y sitemap de endpoints |
 | `GET` | `/api/teams` | Listado completo de equipos con búsqueda, filtros, orden y paginación |
 | `GET` | `/api/teams/:id` | Obtener un equipo específico por su `id` (slug) o código `tla` |
+| `POST` | `/api/teams` | Registrar un nuevo equipo y poblar sus tablas asociadas en MySQL |
+| `PUT` | `/api/teams/:id` | Actualizar por completo un equipo existente y sincronizar relaciones |
+| `DELETE` | `/api/teams/:id` | Eliminar un equipo (con eliminación en cascada automática en MySQL) |
 | `GET` | `/api/teams/:id/stadium` | Obtener únicamente la información del estadio de un equipo |
 | `GET` | `/api/teams/:id/honours` | Obtener únicamente el palmarés / títulos de un equipo |
 | `GET` | `/api/teams/:id/manager` | Obtener DT, capitán, temporada y sitio web de un equipo |
@@ -371,6 +459,9 @@ Devuelve el mensaje de bienvenida, la temporada actual, la versión de la API y 
     "paginar": "GET  /api/teams?page=1&limit=5",
     "equipo_individual": "GET  /api/teams/:id",
     "equipo_por_tla": "GET  /api/teams/ars",
+    "crear_equipo": "POST /api/teams",
+    "actualizar_equipo": "PUT  /api/teams/:id",
+    "eliminar_equipo": "DELETE /api/teams/:id",
     "estadio_del_equipo": "GET  /api/teams/:id/stadium",
     "palmares_del_equipo": "GET  /api/teams/:id/honours",
     "director_tecnico_del_equipo": "GET  /api/teams/:id/manager",
@@ -480,35 +571,198 @@ Obtiene la lista de equipos consultando la base de datos MySQL con relaciones `L
 
 ---
 
-### 3. Detalle de Equipo
+### 3. Detalle de Equipo (GET)
 
-Recupera el objeto completo de un equipo a partir de su slug `id` (ej. `arsenal-fc`) o su código `tla` insensible a mayúsculas/minúsculas (ej. `ars`, `mci`, `eve`) desde la tabla `teams` y sus tablas relacionadas.
+Recupera el objeto completo de un equipo a partir de su ID numérico (ej. `1`, `9`, `13`) o secundariamente por su código `tla` (`ars`, `eve`, `liv`) desde la tabla `teams` y sus tablas relacionadas.
 
 * **Método**: `GET`
 * **Ruta**: `/api/teams/:id`
 * **Parámetros de ruta**:
-  * `id` *(obligatorio)*: Identificador del club (`id` o `tla`).
+  * `id` *(obligatorio)*: Número identificador del club (ej. `1`), o código `tla`.
 * **Ejemplos**:
-  * `GET /api/teams/arsenal-fc`
-  * `GET /api/teams/ars`
+  * `GET /api/teams/1` (Arsenal)
+  * `GET /api/teams/9` (Everton)
+  * `GET /api/teams/ars` (Búsqueda por TLA)
 * **Respuesta exitosa (`200 OK`)**: Devuelve el objeto del club correspondiente.
 * **Error (`404 Not Found`)**:
   ```json
   {
-    "error": "Equipo 'real-madrid' no encontrado.",
-    "message": "Equipo 'real-madrid' no encontrado."
+    "error": "Equipo '99' no encontrado.",
+    "mensaje": "Equipo '99' no encontrado."
   }
   ```
 
 ---
 
-### 4. Estadio de un Equipo
+### 4. Crear un Equipo (POST)
+
+Registra un nuevo club en la base de datos de forma transaccional, insertando su información en `teams` y en sus tablas relacionales vinculadas (`stadiums`, `members_info`, `honours` y `season_info`).
+
+* **Método**: `POST`
+* **Ruta**: `/api/teams`
+* **Cabecera**: `Content-Type: application/json`
+* **Campos obligatorios**: `nombre`, `nombre_corto`, `tla` (3 letras), `año_fundacion`, `ciudad`.
+* **Cuerpo de la petición (JSON Body)**:
+
+```json
+{
+  "id": 21,
+    "slug": "leeds-united",
+  "nombre": "Leeds United Football Club",
+  "nombre_corto": "Leeds",
+  "tla": "LEE",
+  "año_fundacion": 1919,
+  "ciudad": "Leeds",
+  "url_escudo": "https://upload.wikimedia.org/wikipedia/en/5/54/Leeds_United_F.C._logo.svg",
+  "estadio": {
+    "nombre": "Elland Road",
+    "capacidad": 37890,
+    "año_inauguracion": 1897,
+    "ubicacion": "Elland Road, Leeds, LS11 0ES"
+  },
+  "miembros_e_hinchas": {
+    "cantidad_miembros_oficiales": 35000,
+    "apodo": "The Whites"
+  },
+  "palmares": {
+    "titulos_premier_league": 0,
+    "titulos_primera_division": 3,
+    "copas_fa": 1,
+    "copas_efl": 1,
+    "titulos_champions_league": 0,
+    "titulos_europa_league": 0
+  },
+  "info_temporada_actual": {
+    "temporada": "2026/2027",
+    "director_tecnico": "Daniel Farke",
+    "capitan": "Ethan Ampadu",
+    "sitio_web": "https://www.leedsunited.com"
+  }
+}
+```
+
+* **Respuesta exitosa (`201 Created`)**:
+
+```json
+{
+  "mensaje": "Equipo creado exitosamente.",
+  "datos": {
+    "id": "leeds-united",
+    "nombre": "Leeds United Football Club",
+    "nombre_corto": "Leeds",
+    "tla": "LEE",
+    "año_fundacion": 1919,
+    "ciudad": "Leeds",
+    "url_escudo": "https://upload.wikimedia.org/wikipedia/en/5/54/Leeds_United_F.C._logo.svg",
+    "estadio": {
+      "nombre": "Elland Road",
+      "capacidad": 37890,
+      "año_inauguracion": 1897,
+      "ubicacion": "Elland Road, Leeds, LS11 0ES"
+    },
+    "miembros_e_hinchas": {
+      "cantidad_miembros_oficiales": 35000,
+      "apodo": "The Whites"
+    },
+    "palmares": {
+      "titulos_premier_league": 0,
+      "titulos_primera_division": 3,
+      "copas_fa": 1,
+      "copas_efl": 1,
+      "titulos_champions_league": 0,
+      "titulos_europa_league": 0,
+      "total_trofeos_principales": 5
+    },
+    "info_temporada_actual": {
+      "temporada": "2026/2027",
+      "director_tecnico": "Daniel Farke",
+      "capitan": "Ethan Ampadu",
+      "sitio_web": "https://www.leedsunited.com"
+    }
+  }
+}
+```
+
+* **Errores habituales**:
+  * `400 Bad Request`: Si falta alguno de los campos obligatorios o el código TLA no tiene 3 letras.
+  * `409 Conflict`: Si ya existe un club registrado con el mismo `id` o código `tla`.
+
+---
+
+### 5. Actualizar un Equipo (PUT)
+
+Actualiza íntegramente la información de un equipo existente identificado por su `id` o `tla`. Sincroniza mediante sentencias transaccionales los datos en la tabla `teams` y actualiza/inserta las filas en `stadiums`, `members_info`, `honours` y `season_info`.
+
+* **Método**: `PUT`
+* **Ruta**: `/api/teams/:id`
+* **Cabecera**: `Content-Type: application/json`
+* **Ejemplo de solicitud**: `PUT /api/teams/21`
+* **Cuerpo de la petición (JSON Body)**:
+
+```json
+{
+  "nombre": "Leeds United Football Club",
+  "nombre_corto": "Leeds United",
+  "tla": "LEE",
+  "año_fundacion": 1919,
+  "ciudad": "Leeds",
+  "url_escudo": "https://upload.wikimedia.org/wikipedia/en/5/54/Leeds_United_F.C._logo.svg",
+  "estadio": {
+    "nombre": "Elland Road",
+    "capacidad": 40000,
+    "año_inauguracion": 1897,
+    "ubicacion": "Elland Road, Leeds, LS11 0ES"
+  },
+  "info_temporada_actual": {
+    "temporada": "2026/2027",
+    "director_tecnico": "Marcelo Bielsa",
+    "capitan": "Pascal Struijk",
+    "sitio_web": "https://www.leedsunited.com"
+  }
+}
+```
+
+* **Respuesta exitosa (`200 OK`)**: Devuelve el objeto completo del equipo con las actualizaciones aplicadas.
+* **Errores habituales**:
+  * `400 Bad Request`: Datos incompletos o formato inválido.
+  * `404 Not Found`: El equipo a actualizar no existe.
+  * `409 Conflict`: El código TLA modificado colisiona con el de otro equipo existente.
+
+---
+
+### 6. Eliminar un Equipo (DELETE)
+
+Elimina permanentemente un equipo de la base de datos a partir de su `id` o código `tla`. Debido a la restricción relacional `ON DELETE CASCADE` de MySQL, todos sus registros vinculados en `stadiums`, `members_info`, `honours` y `season_info` se borran de manera atómica y simultánea.
+
+* **Método**: `DELETE`
+* **Ruta**: `/api/teams/:id`
+* **Ejemplo**: `DELETE /api/teams/21` o `DELETE /api/teams/lee`
+* **Respuesta exitosa (`200 OK`)**:
+
+```json
+{
+  "mensaje": "Equipo 'Leeds United Football Club' (LEE) eliminado exitosamente.",
+  "id_eliminado": 21
+}
+```
+
+* **Error (`404 Not Found`)**:
+  ```json
+  {
+    "error": "Equipo 'equipo-inexistente' no encontrado para eliminar.",
+    "mensaje": "Equipo 'equipo-inexistente' no encontrado para eliminar."
+  }
+  ```
+
+---
+
+### 7. Estadio de un Equipo (GET)
 
 Obtiene de forma directa y simplificada los datos de infraestructura y estadio del equipo consultado desde la tabla `stadiums`.
 
 * **Método**: `GET`
 * **Ruta**: `/api/teams/:id/stadium`
-* **Ejemplo**: `GET /api/teams/eve/stadium`
+* **Ejemplo**: `GET /api/teams/9/stadium`
 * **Respuesta exitosa (`200 OK`)**:
 
 ```json
@@ -525,13 +779,13 @@ Obtiene de forma directa y simplificada los datos de infraestructura y estadio d
 
 ---
 
-### 5. Palmarés de un Equipo
+### 8. Palmarés de un Equipo (GET)
 
 Obtiene el desglose de trofeos oficiales (Premier League, First Division, FA Cup, EFL Cup, Champions League y Europa League) junto al total de títulos mayores desde la tabla `honours`.
 
 * **Método**: `GET`
 * **Ruta**: `/api/teams/:id/honours`
-* **Ejemplo**: `GET /api/teams/liv/honours`
+* **Ejemplo**: `GET /api/teams/13/honours`
 * **Respuesta exitosa (`200 OK`)**:
 
 ```json
@@ -551,13 +805,13 @@ Obtiene el desglose de trofeos oficiales (Premier League, First Division, FA Cup
 
 ---
 
-### 6. Info de Temporada Actual
+### 9. Info de Temporada Actual (GET)
 
 Obtiene los datos vigentes de la temporada en curso: director técnico, capitán, temporada y sitio web oficial desde la tabla `season_info`.
 
 * **Método**: `GET`
 * **Ruta**: `/api/teams/:id/manager`
-* **Ejemplo**: `GET /api/teams/ars/manager`
+* **Ejemplo**: `GET /api/teams/1/manager`
 * **Respuesta exitosa (`200 OK`)**:
 
 ```json
@@ -574,7 +828,7 @@ Obtiene los datos vigentes de la temporada en curso: director técnico, capitán
 
 ---
 
-### 7. Resumen Global de la Liga
+### 10. Resumen Global de la Liga (GET)
 
 Calcula agregaciones en tiempo real sobre toda la competición ejecutando funciones agregadas SQL (`COUNT`, `SUM`, `AVG`, `LIMIT 1`): aforo total acumulado, promedio de capacidad por estadio, número total de socios registrados, club más longevo, club más reciente y el estadio con mayor capacidad.
 
@@ -609,7 +863,7 @@ Calcula agregaciones en tiempo real sobre toda la competición ejecutando funcio
 
 ---
 
-### 8. Equipos Agrupados por Ciudad
+### 11. Equipos Agrupados por Ciudad (GET)
 
 Agrupa a los 20 clubes de la liga según su ciudad geográfica ordenados alfabéticamente.
 
@@ -670,7 +924,7 @@ Agrupa a los 20 clubes de la liga según su ciudad geográfica ordenados alfabé
 
 ---
 
-### 9. Ranking de Trofeos
+### 12. Ranking de Trofeos (GET)
 
 Retorna a los 20 clubes ordenados descendentemente por su total acumulado de trofeos mayores consultando la tabla `honours`.
 
@@ -705,7 +959,7 @@ Retorna a los 20 clubes ordenados descendentemente por su total acumulado de tro
 
 ---
 
-### 10. Ranking de Estadios
+### 13. Ranking de Estadios (GET)
 
 Retorna todos los estadios de la liga ordenados de mayor a menor capacidad de espectadores mediante un `JOIN` entre `stadiums` y `teams`.
 

@@ -2,9 +2,10 @@
 CREATE DATABASE IF NOT EXISTS `premier_league` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE `premier_league`;
 
--- Tabla de Equipos
+-- Tabla de Equipos (ID numérico autoincremental)
 CREATE TABLE IF NOT EXISTS `teams` (
-  `id` VARCHAR(50) PRIMARY KEY,
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `slug` VARCHAR(60) UNIQUE,
   `nombre` VARCHAR(150) NOT NULL,
   `nombre_corto` VARCHAR(100) NOT NULL,
   `tla` VARCHAR(10) NOT NULL UNIQUE,
@@ -12,13 +13,14 @@ CREATE TABLE IF NOT EXISTS `teams` (
   `ciudad` VARCHAR(100) NOT NULL,
   `url_escudo` VARCHAR(255),
   INDEX `idx_teams_ciudad` (`ciudad`),
-  INDEX `idx_teams_año_fundacion` (`año_fundacion`)
+  INDEX `idx_teams_año_fundacion` (`año_fundacion`),
+  INDEX `idx_teams_slug` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Tabla de Estadios
 CREATE TABLE IF NOT EXISTS `stadiums` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `team_id` VARCHAR(50) NOT NULL UNIQUE,
+  `team_id` INT NOT NULL UNIQUE,
   `nombre` VARCHAR(150) NOT NULL,
   `capacidad` INT NOT NULL,
   `año_inauguracion` INT,
@@ -30,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `stadiums` (
 -- Tabla de Miembros e Hinchas
 CREATE TABLE IF NOT EXISTS `members_info` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `team_id` VARCHAR(50) NOT NULL UNIQUE,
+  `team_id` INT NOT NULL UNIQUE,
   `cantidad_miembros_oficiales` INT NOT NULL DEFAULT 0,
   `apodo` VARCHAR(100),
   FOREIGN KEY (`team_id`) REFERENCES `teams`(`id`) ON DELETE CASCADE
@@ -39,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `members_info` (
 -- Tabla de Palmarés
 CREATE TABLE IF NOT EXISTS `honours` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `team_id` VARCHAR(50) NOT NULL UNIQUE,
+  `team_id` INT NOT NULL UNIQUE,
   `titulos_premier_league` INT DEFAULT 0,
   `titulos_primera_division` INT DEFAULT 0,
   `copas_fa` INT DEFAULT 0,
@@ -54,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `honours` (
 -- Tabla de Información de Temporada
 CREATE TABLE IF NOT EXISTS `season_info` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `team_id` VARCHAR(50) NOT NULL,
+  `team_id` INT NOT NULL,
   `temporada` VARCHAR(20) NOT NULL,
   `director_tecnico` VARCHAR(100),
   `capitan` VARCHAR(100),

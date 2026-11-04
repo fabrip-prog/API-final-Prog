@@ -71,16 +71,17 @@ async function seedFromInitialJson(connection) {
 
   for (const t of teams) {
     await connection.query(
-      `INSERT INTO \`teams\` (id, nombre, nombre_corto, tla, \`año_fundacion\`, ciudad, url_escudo)
-       VALUES (?, ?, ?, ?, ?, ?, ?)
+      `INSERT INTO \`teams\` (id, slug, nombre, nombre_corto, tla, \`año_fundacion\`, ciudad, url_escudo)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)
        ON DUPLICATE KEY UPDATE 
+         slug = VALUES(slug),
          nombre = VALUES(nombre),
          nombre_corto = VALUES(nombre_corto),
          tla = VALUES(tla),
          \`año_fundacion\` = VALUES(\`año_fundacion\`),
          ciudad = VALUES(ciudad),
          url_escudo = VALUES(url_escudo)`,
-      [t.id, t.nombre, t.nombre_corto, t.tla, t.año_fundacion, t.ciudad, t.url_escudo || null]
+      [t.id, t.slug || null, t.nombre, t.nombre_corto, t.tla, t.año_fundacion, t.ciudad, t.url_escudo || null]
     );
 
     if (t.estadio) {
