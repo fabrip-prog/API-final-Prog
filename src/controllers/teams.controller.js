@@ -7,27 +7,39 @@ const { ApiError } = require('../middleware/errorHandler');
 const TeamsController = {
   /**
    * [GET] /api/teams
-   * Obtiene la lista de equipos con filtros, ordenación y paginación.
+   * Obtiene la lista de equipos de la temporada (con filtro opcional de ciudad o búsqueda).
    */
   async getAllTeams(req, res, next) {
     try {
-      const page = Math.max(1, Number(req.query.page) || 1);
-      const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 20));
-      const offset = (page - 1) * limit;
-
-      const [total, datos] = await Promise.all([
-        TeamModel.count(req.query),
-        TeamModel.findAll(req.query, { limit, offset }),
-      ]);
+      const datos = await TeamModel.findAll(req.query);
 
       res.json({
+        total: datos.length,
         datos,
         paginacion: {
-          total,
-          pagina: page,
-          limite: limit,
-          total_paginas: Math.ceil(total / limit),
+          total: datos.length,
+          pagina: Number(req.query.page) || 1,
+          limite: Number(req.query.limit) || datos.length,
+          total_paginas: 1,
         },
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  /**
+   * [GET] /api/teams/city/:city
+   * Obtiene todos los equipos pertenecientes a una ciudad.
+   */
+  async getTeamsByCity(req, res, next) {
+    try {
+      const city = req.params.city;
+      const datos = await TeamModel.findAll({ city });
+      res.json({
+        ciudad: city,
+        total: datos.length,
+        datos,
       });
     } catch (err) {
       next(err);
@@ -217,6 +229,24 @@ const TeamsController = {
   async getTeamManager(req, res, next) {
     try {
       const result = await TeamModel.findSeasonInfoByTeam(req.params.id);
+
+      if (!result) {
+        return next(new ApiError(404, `Equipo '${req.params.id}' no encontrado.`));
+      }
+
+      res.json(result);
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  /**
+   * [GET] /api/teams/:id/members
+   * Obtiene la cantidad de miembros oficiales y apodo del equipo.
+   */
+  async getTeamMembers(req, res, next) {
+    try {
+      const result = await TeamModel.findMembersByTeam(req.params.id);
 
       if (!result) {
         return next(new ApiError(404, `Equipo '${req.params.id}' no encontrado.`));

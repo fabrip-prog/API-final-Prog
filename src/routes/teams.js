@@ -2,58 +2,71 @@ const express = require('express');
 const router = express.Router();
 const TeamsController = require('../controllers/teams.controller');
 
-// ═══════════════════════════════════════════════════════════════════════════════
-//  RUTAS DE EQUIPOS (CRUD Completo: GET, POST, PUT, DELETE)
-// ═══════════════════════════════════════════════════════════════════════════════
-
 /**
- * GET /api/teams
- * Listar todos los equipos. Soporta búsqueda, filtros, ordenación y paginación.
+ * 1. Todos los equipos de la temporada (con filtro opcional ?city=Londres)
+ *    GET /api/teams
+ *    GET /api/teams?city=Londres
  */
 router.get('/', TeamsController.getAllTeams);
 
 /**
- * GET /api/teams/:id
- * Obtener un equipo individual por su ID slug o código TLA.
+ * 2. Filtrar equipos directamente por ciudad en la URL
+ *    GET /api/teams/city/Londres
+ */
+router.get('/city/:city', TeamsController.getTeamsByCity);
+
+/**
+ * 3. Detalle completo de un equipo a partir de su ID numérico o código TLA
+ *    GET /api/teams/1
+ *    GET /api/teams/ARS
  */
 router.get('/:id', TeamsController.getTeamById);
 
-/**
- * POST /api/teams
- * Registrar un nuevo equipo con todas sus tablas relacionales.
- */
-router.post('/', TeamsController.createTeam);
 
 /**
- * PUT /api/teams/:id
- * Actualizar de forma completa un equipo existente por su ID o TLA.
- */
-router.put('/:id', TeamsController.updateTeam);
-
-/**
- * DELETE /api/teams/:id
- * Eliminar un equipo (con eliminación en cascada de sus tablas secundarias).
- */
-router.delete('/:id', TeamsController.deleteTeam);
-
-// ── Subrecursos específicos ───────────────────────────────────────────────────
-
-/**
- * GET /api/teams/:id/stadium
- * Obtener la información del estadio de un equipo.
+ * 4. Estadio de un equipo
+ *    GET /api/teams/1/stadium  o  GET /api/teams/ARS/stadium
  */
 router.get('/:id/stadium', TeamsController.getTeamStadium);
 
 /**
- * GET /api/teams/:id/honours
- * Obtener la vitrina de trofeos y títulos de un equipo.
+ * 5. Palmarés de trofeos de un equipo
+ *    GET /api/teams/1/honours  o  GET /api/teams/ARS/honours
  */
 router.get('/:id/honours', TeamsController.getTeamHonours);
 
 /**
- * GET /api/teams/:id/manager
- * Obtener los datos de la temporada actual (DT, capitán, sitio web).
+ * 6. Masa social y apodo de un equipo
+ *    GET /api/teams/1/members  o  GET /api/teams/ARS/members
  */
+router.get('/:id/members', TeamsController.getTeamMembers);
+
+/**
+ * 7. Información de la temporada actual (DT, capitán, sitio web)
+ *    GET /api/teams/1/season   o  GET /api/teams/ARS/season
+ *    GET /api/teams/1/manager  o  GET /api/teams/ARS/manager
+ */
+router.get('/:id/season', TeamsController.getTeamManager);
 router.get('/:id/manager', TeamsController.getTeamManager);
+
+// ── Operaciones de modificación (CRUD) ─────────────────────────────────────────
+
+/**
+ * 8. Crear un nuevo equipo
+ *    POST /api/teams
+ */
+router.post('/', TeamsController.createTeam);
+
+/**
+ * 9. Actualizar un equipo existente
+ *    PUT /api/teams/:id
+ */
+router.put('/:id', TeamsController.updateTeam);
+
+/**
+ * 10. Eliminar un equipo
+ *     DELETE /api/teams/:id
+ */
+router.delete('/:id', TeamsController.deleteTeam);
 
 module.exports = router;

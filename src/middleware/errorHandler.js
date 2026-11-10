@@ -23,9 +23,16 @@ function notFoundHandler(req, res, _next) {
  */
 function errorHandler(err, _req, res, _next) {
   const statusCode = err.statusCode || 500;
+  if (statusCode === 500) {
+    console.error(' Error no controlado en la API:', err);
+  }
+
   res.status(statusCode).json({
     error: statusCode === 500 ? 'Error interno del servidor' : err.message,
-    mensaje: statusCode === 500 ? 'Algo salió mal en el servidor.' : err.message,
+    mensaje:
+      statusCode === 500 && process.env.NODE_ENV === 'production'
+        ? 'Algo salió mal en el servidor.'
+        : err.message || 'Algo salió mal en el servidor.',
   });
 }
 

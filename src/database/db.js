@@ -60,7 +60,7 @@ async function ensureDatabaseAndTables() {
 }
 
 /**
- * Siembra datos desde data/teams.json a MySQL
+ * Siembra datos desde data/teams.json a MySQL reutilizando la lógica modular
  */
 async function seedFromInitialJson(connection) {
   const jsonPath = path.join(__dirname, '..', '..', 'data', 'teams.json');
@@ -69,7 +69,11 @@ async function seedFromInitialJson(connection) {
   const rawData = fs.readFileSync(jsonPath, 'utf-8');
   const teams = JSON.parse(rawData);
 
+  // Importamos de forma diferida el helper de guardado relacional
+  const { saveRelatedData } = require('../models/team.model');
+
   for (const t of teams) {
+    // 1. Guardar equipo principal en 'teams'
     await connection.query(
       `INSERT INTO \`teams\` (id, slug, nombre, nombre_corto, tla, \`año_fundacion\`, ciudad, url_escudo)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
@@ -84,76 +88,8 @@ async function seedFromInitialJson(connection) {
       [t.id, t.slug || null, t.nombre, t.nombre_corto, t.tla, t.año_fundacion, t.ciudad, t.url_escudo || null]
     );
 
-    if (t.estadio) {
-      await connection.query(
-        `INSERT INTO \`stadiums\` (team_id, nombre, capacidad, \`año_inauguracion\`, ubicacion)
-         VALUES (?, ?, ?, ?, ?)
-         ON DUPLICATE KEY UPDATE
-           nombre = VALUES(nombre),
-           capacidad = VALUES(capacidad),
-           \`año_inauguracion\` = VALUES(\`año_inauguracion\`),
-           ubicacion = VALUES(ubicacion)`,
-        [t.id, t.estadio.nombre, t.estadio.capacidad, t.estadio.año_inauguracion || null, t.estadio.ubicacion || null]
-      );
-    }
-
-    if (t.miembros_e_hinchas) {
-      await connection.query(
-        `INSERT INTO \`members_info\` (team_id, cantidad_miembros_oficiales, apodo)
-         VALUES (?, ?, ?)
-         ON DUPLICATE KEY UPDATE
-           cantidad_miembros_oficiales = VALUES(cantidad_miembros_oficiales),
-           apodo = VALUES(apodo)`,
-        [t.id, t.miembros_e_hinchas.cantidad_miembros_oficiales || 0, t.miembros_e_hinchas.apodo || null]
-      );
-    }
-
-    if (t.palmares) {
-      await connection.query(
-        `INSERT INTO \`honours\` (
-           team_id, titulos_premier_league, titulos_primera_division,
-           copas_fa, copas_efl, titulos_champions_league, titulos_europa_league,
-           total_trofeos_principales
-         )
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-         ON DUPLICATE KEY UPDATE
-           titulos_premier_league = VALUES(titulos_premier_league),
-           titulos_primera_division = VALUES(titulos_primera_division),
-           copas_fa = VALUES(copas_fa),
-           copas_efl = VALUES(copas_efl),
-           titulos_champions_league = VALUES(titulos_champions_league),
-           titulos_europa_league = VALUES(titulos_europa_league),
-           total_trofeos_principales = VALUES(total_trofeos_principales)`,
-        [
-          t.id,
-          t.palmares.titulos_premier_league || 0,
-          t.palmares.titulos_primera_division || 0,
-          t.palmares.copas_fa || 0,
-          t.palmares.copas_efl || 0,
-          t.palmares.titulos_champions_league || 0,
-          t.palmares.titulos_europa_league || 0,
-          t.palmares.total_trofeos_principales || 0,
-        ]
-      );
-    }
-
-    if (t.info_temporada_actual) {
-      await connection.query(
-        `INSERT INTO \`season_info\` (team_id, temporada, director_tecnico, capitan, sitio_web)
-         VALUES (?, ?, ?, ?, ?)
-         ON DUPLICATE KEY UPDATE
-           director_tecnico = VALUES(director_tecnico),
-           capitan = VALUES(capitan),
-           sitio_web = VALUES(sitio_web)`,
-        [
-          t.id,
-          t.info_temporada_actual.temporada || '2026/2027',
-          t.info_temporada_actual.director_tecnico || null,
-          t.info_temporada_actual.capitan || null,
-          t.info_temporada_actual.sitio_web || null,
-        ]
-      );
-    }
+    // 2. Guardar sus datos relacionados (estadio, hinchas, palmarés, temporada)
+    await saveRelatedData(connection, t.id, t);
   }
 }
 
